@@ -1,0 +1,14 @@
+{
+  "extends": ["koa", "eslint:recommended", "plugin:prettier/recommended"],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2021
+  },
+  "rules": {
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"]
+  }
+}

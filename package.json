@@ -1,0 +1,28 @@
+{
+  "name": "open-communication-platform",
+  "version": "1.0.0",
+  "description": "CrazyBeeTeam Project",
+  "main": "index.js",
+  "repository": "https://github.com/honey-rain/OCP",
+  "author": "CrazyBeeTeam",
+  "license": "MIT",
+  "private": true,
+    "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "start": "concurrently \"yarn workspace server start\" \"yarn workspace client start",
+    "lint:client": "cd client && yarn lint",
+    "lint:fix:client": "cd client && yarn lint:fix",
+    "prettier:client": "cd client && yarn prettier",
+    "format:client": "cd client && yarn format",
+    "lint:server": "cd server && yarn lint",
+    "lint:fix:server": "cd server && yarn lint:fix",
+    "prettier:server": "cd server && yarn prettier",
+    "format:server": "cd server && yarn format"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

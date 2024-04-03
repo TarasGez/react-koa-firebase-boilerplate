@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "#admin*": ["./.admin/*"],
+      "#*": ["./src/*"]
+    },
+    "checkJs": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "target": "es2018",
+    "module": "es2015"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "**/node_modules", "dist"]
+}

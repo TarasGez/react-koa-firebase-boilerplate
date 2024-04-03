@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "checkJs": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "module": "ES2022",
+    "target": "ESNext",
+    "types": ["vite/client"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "**/node_modules", "dist"]
+}
