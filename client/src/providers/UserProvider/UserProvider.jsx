@@ -1,5 +1,6 @@
 import { createContext, useCallback, useMemo, useState } from 'react'
 import { USER_STORAGE_KEY } from 'src/assets/constants'
+import { getStorageItem, setStorageItem } from 'src/helpers/localStorage'
 import { mapUser } from 'src/mappers'
 
 export const UserContext = createContext({
@@ -15,14 +16,14 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem(USER_STORAGE_KEY) || '') || null
+      return getStorageItem(USER_STORAGE_KEY)
     } catch (e) {
       return null
     }
   })
 
   const handleSetUser = useCallback((userProviderData) => {
-    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userProviderData))
+    setStorageItem(USER_STORAGE_KEY, userProviderData)
     setUser(userProviderData)
   }, [])
 

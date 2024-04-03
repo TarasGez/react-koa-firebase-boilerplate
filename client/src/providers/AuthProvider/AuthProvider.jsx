@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
 import { auth } from 'src/services/firebase'
 import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from 'src/assets/constants'
+import { getStorageItem, removeStorageItem, setStorageItem } from 'src/helpers/localStorage'
 
 export const AuthContext = createContext({
   token: null,
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate()
   const [token, setToken] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem(TOKEN_STORAGE_KEY) || '') || null
+      return getStorageItem(TOKEN_STORAGE_KEY)
     } catch (e) {
       return null
     }
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogin = useCallback(
     (token) => {
-      localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(token))
+      setStorageItem(TOKEN_STORAGE_KEY, token)
       setToken(token)
       setIsAuthenticated(true)
       navigate('/')
@@ -42,8 +43,8 @@ export const AuthProvider = ({ children }) => {
       .then(() => {
         setToken(null)
         setIsAuthenticated(false)
-        localStorage.removeItem(TOKEN_STORAGE_KEY)
-        localStorage.removeItem(USER_STORAGE_KEY)
+        removeStorageItem(TOKEN_STORAGE_KEY)
+        removeStorageItem(USER_STORAGE_KEY)
         console.log('logout success!')
         navigate('/')
       })
