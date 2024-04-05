@@ -23,11 +23,10 @@ const MainPage = () => {
   }
 
   const postTagsList = () => {
-    const tags = ['one', 'two', 'three']
-    console.log('1 tags:', tags)
+    const tags = { name: 'test' }
+
     postTags(tags).then((resp) => {
       setData(resp)
-      console.log('resp tags', resp)
     })
   }
 

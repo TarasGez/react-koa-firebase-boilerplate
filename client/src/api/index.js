@@ -14,11 +14,11 @@ export const rootGet = async () => {
   return response.data
 }
 
-export const postTags = async (tagList) => {
+export const postTags = async (tag) => {
   const token = getStorageItem(TOKEN_STORAGE_KEY)
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
-  const response = await api.post('/tags', { tagList })
+  const response = await api.post('/tag', tag)
   return response.data
 }
 

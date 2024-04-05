@@ -9,6 +9,7 @@ import dotenv from 'dotenv'
 import tagsRouter from '#routes/tags.js'
 import indexRouter from '#routes/index.js'
 import authTestRouter from '#routes/auth.js'
+import { blueColor, boldText, resetText, whiteColor } from '#constants/console.js'
 
 // Load environment variables
 dotenv.config()
@@ -37,5 +38,7 @@ app.use(authTestRouter.routes())
 const port = process.env.PORT || 3000
 
 app.listen(port, () => {
-  console.log(`  ➜ 🚀 Koa server is running on port http://localhost:${port}/`)
+  console.log(
+    `\n  ${whiteColor}➜${resetText} ${boldText}🚀 Koa server:${resetText} ${blueColor}http://localhost:${port}/${resetText}`
+  )
 })
