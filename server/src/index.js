@@ -7,6 +7,7 @@ import dotenv from 'dotenv'
 
 // Routes
 import tagsRouter from '#routes/tags.js'
+import booksRouter from '#routes/books.js'
 import indexRouter from '#routes/index.js'
 import authTestRouter from '#routes/auth.js'
 import { blueColor, boldText, resetText, whiteColor } from '#constants/console.js'
@@ -32,6 +33,7 @@ app.use(async (ctx, next) => {
 
 // Combine routers
 app.use(tagsRouter.routes())
+app.use(booksRouter.routes())
 app.use(indexRouter.routes())
 app.use(authTestRouter.routes())
 

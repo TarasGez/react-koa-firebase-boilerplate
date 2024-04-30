@@ -25,28 +25,28 @@ router.post('/tag', async (ctx) => {
     }
 
     // Extract tag data from request body
-    const tag = ctx.request.body
-    const { name } = tag
+    const { tag } = ctx.request.body
 
-    if (!name) {
-      ctx.throw(400, 'Tag name is required! Tag must be of the following type: {name: string}')
+    if (!tag) {
+      ctx.throw(400, 'Tag name is required!')
     }
 
     // Check if the "tags" collection exists
     const tagsCollectionRef = db.collection('tags')
 
-    const getTagByName = await tagsCollectionRef.where('name', '==', name).get()
+    const tagToLowerCase = tag.toLowerCase()
+    const getTagByName = await tagsCollectionRef.where('name', '==', tagToLowerCase).get()
 
     if (getTagByName.size !== 0) {
-      ctx.throw(400, `Tag {name: ${name}} already exist!`)
+      ctx.throw(400, `Tag '${tagToLowerCase}' already exist!`)
     }
 
     // Add tag to collection
-    await tagsCollectionRef.doc().set(tag)
+    await tagsCollectionRef.doc().set({ name: tagToLowerCase })
 
     // Respond with success message
     ctx.status = 201 // Created
-    ctx.body = { success: true, message: `Tag {name: ${name}} added successfully` }
+    ctx.body = { success: true, message: `Tag '${tagToLowerCase}' added successfully` }
   } catch (error) {
     const { status, message } = error
     // 401 Unauthorized

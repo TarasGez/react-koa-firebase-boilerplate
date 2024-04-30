@@ -10,10 +10,10 @@ export const AuthContext = createContext({
   isAuthenticated: false,
   // eslint-disable-next-line no-unused-vars
   onLogin: (token) => {
-    throw new Error(`Missing AuthContext['onLogin']`)
+    throw new Error(`Missing AuthContext['onLogin'] called with ${JSON.stringify(token)}`)
   },
   onLogout: () => {
-    throw new Error(`Missing AuthContext['onLogout']`)
+    throw new Error("Missing AuthContext['onLogout']")
   },
 })
 
@@ -65,5 +65,3 @@ export const AuthProvider = ({ children }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
-
-export default AuthProvider

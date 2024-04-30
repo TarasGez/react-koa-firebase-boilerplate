@@ -9,22 +9,30 @@ export const api = axios.create({
 
 api.defaults.headers.common['Content-Type'] = 'application/json'
 
-export const rootGet = async () => {
-  const response = await api.get('/')
-  return response.data
-}
-
-export const postTags = async (tag) => {
+export const postTag = async (tag) => {
   const token = getStorageItem(TOKEN_STORAGE_KEY)
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
-  const response = await api.post('/tag', tag)
+  const response = await api.post('/tag', { tag })
+  return response.data
+}
+
+export const postBook = async (book) => {
+  const token = getStorageItem(TOKEN_STORAGE_KEY)
+  api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+  const response = await api.post('/book', book)
   return response.data
 }
 
 export const authTest = async () => {
   const token = getStorageItem(TOKEN_STORAGE_KEY)
 
-  const response = await api.post('/auth', { token })
-  return response.data
+  try {
+    const response = await api.post('/auth', { token })
+    return response.data
+  } catch (error) {
+    console.log('error', error)
+    throw new Error(error)
+  }
 }
