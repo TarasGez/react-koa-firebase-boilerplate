@@ -24,9 +24,6 @@ router.post('/book', async (ctx) => {
     // Extract book data from request body
     const { title, description } = ctx.request.body
 
-    console.log('=======title:', title)
-    console.log('=========description:', description)
-
     if (!title) {
       ctx.throw(400, 'Book title is required!')
     }

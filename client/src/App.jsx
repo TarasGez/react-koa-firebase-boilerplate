@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
 import { ErrorProvider, AuthProvider, UserProvider } from 'src/providers'
 import AppRoutes from 'src/AppRoutes'
-import ErrorBoundary from 'src/components/ErrorBoundary'
+import { ErrorBoundary, Layout } from './components'
 
 function App() {
   return (
@@ -10,7 +10,9 @@ function App() {
         <ErrorProvider>
           <AuthProvider>
             <UserProvider>
-              <AppRoutes />
+              <Layout>
+                <AppRoutes />
+              </Layout>
             </UserProvider>
           </AuthProvider>
         </ErrorProvider>

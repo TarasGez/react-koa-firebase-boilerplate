@@ -1,16 +1,18 @@
-import { createContext, useCallback, useMemo, useState } from 'react'
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { USER_STORAGE_KEY } from 'src/assets/constants'
 import { getStorageItem, setStorageItem } from 'src/helpers/localStorage'
+import { checkIsAdmin } from 'src/helpers/user'
 import { mapUser } from 'src/mappers'
 
 export const UserContext = createContext({
   // eslint-disable-next-line no-unused-vars
   setUserData: (userProviderData) => {
-    throw new Error(`Missing UserContext['setUserData']`)
+    throw new Error(`Missing UserContext['setUserData'] called with ${userProviderData}`)
   },
   getUserData: () => {
     throw new Error(`Missing UserContext['getUserData']`)
   },
+  isAdmin: false,
 })
 
 export const UserProvider = ({ children }) => {
@@ -21,6 +23,14 @@ export const UserProvider = ({ children }) => {
       return null
     }
   })
+
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    if (user) {
+      setIsAdmin(checkIsAdmin(user))
+    }
+  }, [user])
 
   const handleSetUser = useCallback((userProviderData) => {
     setStorageItem(USER_STORAGE_KEY, userProviderData)
@@ -33,8 +43,9 @@ export const UserProvider = ({ children }) => {
     () => ({
       setUserData: handleSetUser,
       getUserData: handleGetUser,
+      isAdmin,
     }),
-    [handleGetUser, handleSetUser]
+    [handleGetUser, handleSetUser, isAdmin]
   )
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { postTag, authTest } from 'src/api'
+import { authTest } from 'src/api'
 import { Login, Logout } from 'src/components'
-import { useError, useUserData } from 'src/providers/hooks'
+import { useError, useUserData } from 'src/hooks'
 
 const MainPage = () => {
   const [data, setData] = useState({ name: '' })
@@ -15,15 +15,6 @@ const MainPage = () => {
     setIsGuest(_isGuest)
     setData(user)
   }, [getUserData])
-
-  const addTag = async (ev) => {
-    const { value } = ev.target.tagName
-
-    if (value) {
-      const resp = await postTag(value)
-      console.log('resp', resp)
-    }
-  }
 
   const postAuthTest = () => {
     authTest()
@@ -39,11 +30,6 @@ const MainPage = () => {
       <p>User: {data.name}</p>
       <div style={{ display: 'flex', flexDirection: 'column', width: 'fit-content', gap: '10px' }}>
         <button onClick={postAuthTest}>Test auth token</button>
-
-        <form onSubmit={addTag}>
-          <input type="text" id="tagName" name="tagName" />
-          <button type="submit">Add tag</button>
-        </form>
 
         {isGuest && <Login />}
         {!isGuest && <Logout />}

@@ -1,6 +1,6 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth } from 'src/services/firebase'
-import { useAuth, useUserData } from 'src/providers/hooks'
+import { useAuth, useUserData } from 'src/hooks'
 
 export const useAuthWithFirebase = () => {
   const { onLogin } = useAuth()

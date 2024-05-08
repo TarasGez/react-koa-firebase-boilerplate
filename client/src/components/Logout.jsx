@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { useAuth, useUserData } from 'src/providers/hooks'
+import { useAuth, useUserData } from 'src/hooks'
 
 function Logout() {
   const { onLogout } = useAuth()
